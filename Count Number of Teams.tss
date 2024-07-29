@@ -1,0 +1,17 @@
+function numTeams(rating: number[]): number {
+    let n = rating.length, count = 0; 
+    for (let i = 1; i < n - 1; i++) {
+        let leftGr = 0, leftSm = 0, rightGr = 0, rightSm = 0; 
+        for (let j = 0; j < i; j++) {
+            if (rating[j] > rating[i]) leftGr++; 
+            if (rating[j] < rating[i]) leftSm++; 
+        }
+        for (let k = i + 1; k < n; k++) {
+            if (rating[k] > rating[i]) rightGr++; 
+            if (rating[k] < rating[i]) rightSm++;
+        }
+        count += (leftGr * rightSm) + (leftSm * rightGr);
+    }
+
+    return count; 
+}
