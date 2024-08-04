@@ -13,8 +13,6 @@ def zeroMatrix(matrix, n, m):
                 matrix[i][j] = 0
 
     return matrix
-
-
 if __name__ == "__main__":
 	matrix = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
 	n = len(matrix)
@@ -26,4 +24,3 @@ if __name__ == "__main__":
 	    for ele in row:
 	        print(ele, end=" ")
 print()
-
