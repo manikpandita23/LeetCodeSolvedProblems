@@ -1,33 +1,42 @@
 class Solution {
-    public int calculate(String s) {
-        int num = 0;
-        char operator = '+';
-        Stack<Integer> stac = new Stack<>();
-        char[] cha = s.toCharArray();
-        int i=0;
-        for (char ch:cha) {
-            if (Character.isDigit(ch)) {
-                num = num*10+(ch-'0');
+public:
+    int calculate(string s) {
+        stack<int> st;
+        int curr = 0;
+        char sign = '+';
+
+        for(int i=0; i<s.size();i++){
+            if(isdigit(s[i])){
+                curr = 10*curr + int(s[i]-'0');
             }
-            if (!Character.isDigit(ch) && ch!=' ' || i==s.length()-1){
-                if(operator=='/'){
-                    stac.push(stac.pop()/num);
-                }else if(operator=='*'){
-                    stac.push(stac.pop()*num);
-                } else if(operator=='+'){
-                    stac.push(num);
-                }else{
-                    stac.push(-num);
+            if(!isdigit(s[i]) && s[i] != ' ' || i == s.size()-1){
+                if(sign == '+'){
+                    st.push(curr);
                 }
-                operator = ch;
-                num = 0;
+                else if(sign == '-'){
+                    st.push(-curr);
+                }
+                else{
+                    int num;
+                    if(sign == '*'){
+                        num = st.top() * curr;
+                    }
+                    else{
+                        num = st.top() / curr;
+                    }
+                    st.pop();
+                    st.push(num);
+                }
+                sign = s[i];
+                curr = 0; 
             }
-            i++;
+            
         }
-        int ans= 0;
-        while(!stac.isEmpty()){
-            ans+=stac.pop();
+        int sum = 0;
+        while(!st.empty()){
+            sum += st.top();
+            st.pop();
         }
-        return ans;
+        return sum;
     }
-}
+};
