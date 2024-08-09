@@ -1,26 +1,18 @@
 class Solution {
 public:
-    int healper(int i , vector<int>&v , int sum , int n , int &k){
-        if(i == v.size() || sum == n){
-            if(k >= 2)
-                return 1;
-            return 0;
-        }
-
-        int nottake = healper(i+1,v,sum,n,k);
-        int take = 1;
-        if(sum + v[i] <= n){
-            k++;
-            take = v[i]*healper(i,v,sum+v[i],n,k);
-        }
-
-        return max(take,nottake);
-    }
     int integerBreak(int n) {
-        vector<int> v;
-        for(int i=1; i<=n; i++)
-            v.push_back(i);
-        int k = 0;
-        return healper(0,v,0,n,k);
+        if (n == 2) return 1;
+        if (n == 3) return 2;
+        
+        vector<int> dp(n + 1, 0);
+        dp[1] = 1;
+
+        for (int i = 2; i <= n; ++i) {
+            for (int j = 1; j <= i / 2; ++j) {
+                dp[i] = max(dp[i], max(j, dp[j]) * max(i - j, dp[i - j]));
+            }
+        }
+        
+        return dp[n];
     }
 };
